@@ -1,0 +1,7 @@
+---
+applications:
+  - name: rsocket-server
+    path: target/rsocket-server-0.0.1-SNAPSHOT.jar
+    routes:
+#      - route: rsocket-server.apps.pcfone.io
+      - route: rsocket-server.clearlake.cf-app.com
