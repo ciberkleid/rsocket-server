@@ -5,3 +5,5 @@ applications:
     routes:
 #      - route: rsocket-server.apps.pcfone.io
       - route: rsocket-server.clearlake.cf-app.com
+    env:
+      SPRING_PROFILES_ACTIVE: wscloud
