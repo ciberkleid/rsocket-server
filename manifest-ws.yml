@@ -1,9 +1,8 @@
 ---
 applications:
-  - name: rsocket-server
+  - name: rsocket-server-ws
     path: target/rsocket-server-0.0.1-SNAPSHOT.jar
     routes:
-#      - route: rsocket-server.apps.pcfone.io
-      - route: rsocket-server.clearlake.cf-app.com
+      - route: rsocket-server.apps.clearlake.cf-app.com
     env:
-      SPRING_PROFILES_ACTIVE: wscloud
+      SPRING_PROFILES_ACTIVE: ws

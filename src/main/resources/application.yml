@@ -1,0 +1,27 @@
+---
+spring:
+  profiles: tcplocal
+  main:
+    web-application-type: none
+  rsocket:
+    server:
+      transport: tcp
+      port: 7000
+
+---
+spring:
+  profiles: tcp
+  main:
+    web-application-type: none
+  rsocket:
+    server:
+      transport: tcp
+      port: 8080
+
+---
+spring:
+  profiles: ws
+  rsocket:
+    server:
+      transport: websocket
+      mapping-path: /
