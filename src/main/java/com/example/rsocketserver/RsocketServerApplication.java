@@ -41,14 +41,14 @@ class GreetingServerController {
 
 	@MessageMapping("greet-stream")
 	public Flux<String> greetStream(@Payload Greeting p) {
-		log.info("received:  {} at {}", p, Instant.now());
+		log.info("received: {} at {}", p, Instant.now());
 		return Flux.interval(Duration.ofSeconds(1))
 				.map(i -> "greet-stream#(Hello #" + i + "," + p.getMessage() + ") at " + Instant.now());
 	}
 
 	@MessageMapping("greet-channel")
 	public Flux<String> greetChannel(@Payload Flux<Greeting> p) {
-		log.info("received:  {} at {}", p, Instant.now());
+		log.info("received: {} at {}", p, Instant.now());
 		return p.delayElements(Duration.ofSeconds(1))
 				.map(m -> "greet-channel#(" + m + ") at " + Instant.now());
 	}
