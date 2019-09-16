@@ -1,6 +1,6 @@
 package com.example.rsocketserver;
 
-import lombok.Data;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,11 +39,24 @@ class GreetingServerController {
 		return Mono.just("Hello " + name + ", " + p.getMessage() + " at " + Instant.now());
 	}
 
+	@MessageMapping("greet-json.{name}")
+	public Mono<Greeting> greetGreeting(@DestinationVariable String name, @Payload Greeting p) {
+		log.info("received: {}, {} at {}", name, p, Instant.now());
+		return Mono.just(new Greeting("Hello " + name + ", " + p.getMessage() + " at " + Instant.now()));
+	}
+
 	@MessageMapping("greet-stream")
 	public Flux<String> greetStream(@Payload Greeting p) {
 		log.info("received: {} at {}", p, Instant.now());
 		return Flux.interval(Duration.ofSeconds(1))
 				.map(i -> "greet-stream#(Hello #" + i + "," + p.getMessage() + ") at " + Instant.now());
+	}
+
+	@MessageMapping("greet-stream-json")
+	public Flux<Greeting> greetStreamGreeting(@Payload Greeting p) {
+		log.info("received: {} at {}", p, Instant.now());
+		return Flux.interval(Duration.ofSeconds(1))
+				.map(i -> new Greeting("greet-stream#(Hello #" + i + "," + p.getMessage() + ") at " + Instant.now()));
 	}
 
 	@MessageMapping("greet-channel")
@@ -56,6 +69,8 @@ class GreetingServerController {
 }
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 class Greeting {
 
 	String message;
